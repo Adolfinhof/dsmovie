@@ -13,9 +13,18 @@ type Props = {
 function FormCard({ movieId }: Props) {
 
     const navigate = useNavigate();
-
-
     const [movie, setMovie] = useState<Movie>();
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/movies/${movieId}`)
+            .then(response => {
+                setMovie(response.data);
+                //console.log(`${movieId}`)
+            })
+    }
+
+    )
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         //Para para envio do formulário completo
         event.preventDefault();
@@ -39,20 +48,11 @@ function FormCard({ movieId }: Props) {
         }
 
         axios(config).then(response => {
-            navigate("/");           
+            navigate("/");        
+            //console.log(response.data);
         })
 
     }
-
-
-    useEffect(() => {
-        axios.get(`${BASE_URL}/movies/${movieId}`)
-            .then(response => {
-                setMovie(response.data);
-            })
-    }
-
-    )
 
     return (
 
